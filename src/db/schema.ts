@@ -1,117 +1,67 @@
-import { relations } from "drizzle-orm";
 import {
-  bigint,
-  bigserial,
-  boolean,
-  char,
-  date,
-  decimal,
-  doublePrecision,
   integer,
-  interval,
-  json,
-  jsonb,
-  numeric,
-  pgEnum,
-  pgTable,
-  primaryKey,
-  real,
   serial,
-  smallserial,
   text,
-  time,
+  pgTable,
+  real,
   timestamp,
-  varchar,
-} from "drizzle-orm/pg-core";
+  pgEnum,
+  PgColumn,
+} from 'drizzle-orm/pg-core';
+import { relations } from 'drizzle-orm';
 
-export const users = pgTable("users", {
-  id: serial("id").primaryKey(),
-  fullName: text("full_name"),
-  phone: varchar("phone", { length: 256 }),
-  address: varchar("address", { length: 256 }),
-  score: integer("score"),
+export const products = pgTable('products', {
+  id: serial('id').primaryKey(),
+  name: text('name').notNull(),
+  price: real('price').default(0).notNull(),
+  size: text('size').notNull(),
+  description: text('description'),
+  createdAt: timestamp('createdAt', { mode: 'string' }).defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').$onUpdate(() => new Date()),
 });
 
-export const userRelations = relations(users, ({ one, many }) => ({
-  profile: one(profiles, {
-    fields: [users.id],
-    references: [profiles.userId],
-  }),
-  posts: many(posts),
+export const productsRelations = relations(products, ({ many }) => ({
+  cartProducts: many(cartProducts),
 }));
 
-export const posts = pgTable("posts", {
-  id: serial("id").primaryKey(),
-  text: varchar("text", { length: 256 }),
-  authorId: integer("author_id")
-    .notNull()
-    .references(() => users.id),
+export const statusEnum = pgEnum('status', ['in_cart', 'ordered']);
+
+// TODO: to be continued
+export const carts = pgTable('carts', {
+  id: serial('id').primaryKey(),
+  status: statusEnum('status').default('in_cart').notNull(),
+  createdAt: timestamp('createdAt', { mode: 'string' }).defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').$onUpdate(() => new Date()),
 });
 
-export const postRelations = relations(posts, ({ one, many }) => ({
-  author: one(users, {
-    fields: [posts.authorId],
-    references: [users.id],
-  }),
-
-  postCategories: many(postOnCategories),
+export const cartssRelations = relations(carts, ({ one }) => ({
+  // author: one(products, { fields: [carts.authorId], references: [products.id] }),
 }));
 
-export const categories = pgTable("categories", {
-  id: serial("id").primaryKey(),
-  name: varchar("name", { length: 256 }),
+export const cartProducts = pgTable('cart_products', {
+  id: serial('id').primaryKey(),
+  cartId: integer('cart_id')
+    .references(() => carts.id, { onDelete: 'cascade' })
+    .notNull(),
+  productId: integer('product_id')
+    .references(() => products.id, { onDelete: 'cascade' })
+    .notNull(),
+  quantity: integer('quantity').default(1).notNull(),
+  createdAt: timestamp('createdAt', { mode: 'string' }).defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').$onUpdate(() => new Date()),
 });
 
-export const categoryRelations = relations(categories, ({ many }) => ({
-  posts: many(postOnCategories),
+export const cartProductsRelations = relations(cartProducts, ({ one }) => ({
+  cart: one(carts, { fields: [cartProducts.id], references: [carts.id] }),
+  product: one(carts, { fields: [cartProducts.id], references: [carts.id] }),
 }));
 
-export const postOnCategories = pgTable(
-  "post_categories",
-  {
-    postId: integer("post_id")
-      .notNull()
-      .references(() => posts.id),
-    categoryId: integer("category_id")
-      .notNull()
-      .references(() => categories.id),
-  },
-  (t) => ({
-    pk: primaryKey(t.postId, t.categoryId),
-  })
-);
-export const postOnCategoriesRelations = relations(postOnCategories, ({ one }) => ({
-  post: one(posts, {
-    fields: [postOnCategories.postId],
-    references: [posts.id],
-  }),
-
-  category: one(categories, {
-    fields: [postOnCategories.categoryId],
-    references: [categories.id],
-  }),
-}));
-
-export const profiles = pgTable("profiles", {
-  id: serial("id").primaryKey(),
-  bio: varchar("bio", { length: 256 }),
-  userId: integer("user_id")
-    .notNull()
-    .references(() => users.id),
+export const orders = pgTable('orders', {
+  id: serial('id').primaryKey(),
+  cartId: integer('cart_id')
+    .references(() => carts.id, { onDelete: 'cascade' })
+    .notNull(),
+  totalPrice: real('total_price').default(0).notNull(),
+  createdAt: timestamp('createdAt', { mode: 'string' }).defaultNow().notNull(),
+  updatedAt: timestamp('updated_at').$onUpdate(() => new Date()),
 });
-
-// export const moodEnum = pgEnum("mood", ["sad", "ok", "happy"]);
-// export const testTable = pgTable("testTable", {
-//   id: bigserial("id", { mode: "bigint" }).primaryKey(),
-//   qty: bigint("qty", { mode: "bigint" }),
-//   price: numeric("price", { precision: 7, scale: 2 }), // 12345.67
-//   score: doublePrecision("score"),
-//   delivered: boolean("delivered"),
-//   // description: text("description"),
-//   description: varchar("description", { length: 256 }),
-//   name: char("name", { length: 10 }), // "chair     "
-//   data: jsonb("data"),
-//   // startAt: time("startAt", { withTimezone: false }).defaultNow(),
-//   date: interval("date"),
-//   mood: moodEnum("mood").default("ok"),
-// });
