@@ -1,6 +1,5 @@
 import * as dotenv from 'dotenv';
-// dotenv.config({ path: '.env.local' });
-dotenv.config();
+dotenv.config({ path: '.env.local' });
 
 const { DB_USER, DB_PASS, DB_HOST, DB_PORT, DB_NAME } = process.env;
 

@@ -1,12 +1,11 @@
-import { db } from '@/db';
+import { getProducts } from '@/services//users';
 import Link from 'next/link';
 
-async function getPosts() {
-  return await db.query.posts.findMany();
-}
+export const revalidate = 20;
+// export const dynamic = 'auto';
 
 export default async function Home() {
-  const result = await getPosts();
+  const data = await getProducts();
 
   return (
     <div>
@@ -14,7 +13,7 @@ export default async function Home() {
 
       <Link href='/users'>Users Page</Link>
 
-      <pre>{JSON.stringify(result, null, 2)}</pre>
+      <pre>{JSON.stringify(data, null, 2)}</pre>
     </div>
   );
 }

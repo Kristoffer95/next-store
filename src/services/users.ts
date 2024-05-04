@@ -1,5 +1,10 @@
 import { db } from '@/db';
 
-export const getUsers = async () => {
-  return await db.query.users.findMany();
+export const getProducts = async () => {
+  return await db.query.products.findMany();
+  // return await db.query.cartProducts.findMany({
+  //   with: {
+  //     product: true,
+  //   },
+  // });
 };
