@@ -8,6 +8,13 @@
       "when": 1714653498836,
       "tag": "0000_charming_fixer",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1714821680290,
+      "tag": "0001_pink_genesis",
+      "breakpoints": true
     }
   ]
 }
