@@ -39,3 +39,17 @@ export const addToCart = async (productId: number) => {
     throw new Error('Failed adding product to cart' + error);
   }
 };
+
+export const removeCartProduct = async (id: number) => {
+  try {
+    await prisma.cartProducts.delete({
+      where: {
+        id,
+      },
+    });
+
+    revalidateTag('cart');
+  } catch (error) {
+    throw new Error('Failed removing product from cart' + error);
+  }
+};
