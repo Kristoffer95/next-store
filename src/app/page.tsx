@@ -1,6 +1,6 @@
-import Link from 'next/link';
+import { prisma } from '@/utils/prisma';
 
-export const revalidate = 20;
+// export const revalidate = 20;
 // export const dynamic = 'auto';
 
 export default async function Home() {
