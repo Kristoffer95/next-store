@@ -5,7 +5,7 @@ import { signOut } from '@/auth';
 
 function Header() {
   return (
-    <div>
+    <div className='flex justify-between'>
       <div className='m-4 flex gap-6 items-center'>
         <Link href='/' className='px-4 py-2 border rounded'>
           Home
@@ -13,6 +13,12 @@ function Header() {
         <Link href='/profile' className='px-4 py-2 border rounded'>
           Profile
         </Link>
+        <Link href='/login' className='px-4 py-2 border rounded'>
+          Login
+        </Link>
+      </div>
+
+      <div className='m-4 flex gap-6 items-center'>
         <LogoutButton
           signOut={async () => {
             'use server';
