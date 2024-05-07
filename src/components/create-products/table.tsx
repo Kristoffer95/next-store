@@ -32,7 +32,7 @@ function CreateProductsTable({ products }: Props) {
           <TableRow key={product.id}>
             <TableCell className='font-medium'>{product.id}</TableCell>
             <TableCell>{product.name}</TableCell>
-            <TableCell>{product.description}</TableCell>
+            <TableCell>{product?.description}</TableCell>
             <TableCell className='text-right'>{product.price}</TableCell>
           </TableRow>
         ))}
