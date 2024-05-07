@@ -1,11 +1,11 @@
 'use client';
 
+import { PiTrashLight } from 'react-icons/pi';
+
 function RemovecartProduct({ removeFromCart }: { removeFromCart: () => void }) {
   return (
-    <button
-      className='border border-black px-2 mx-5 z-100'
-      onClick={() => removeFromCart()}>
-      x
+    <button className='outline-none' onClick={() => removeFromCart()}>
+      <PiTrashLight className='text-xl' />
     </button>
   );
 }

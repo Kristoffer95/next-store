@@ -14,8 +14,8 @@ function Header() {
             <Link className='py-2 px-4' href='/products'>
               Products
             </Link>
-            <Link className='py-2 px-4' href='/cart'>
-              Cart
+            <Link className='py-2 px-4' href='/create-product'>
+              Create Product
             </Link>
             <Link className='py-2 px-4' href='/random'>
               Random
