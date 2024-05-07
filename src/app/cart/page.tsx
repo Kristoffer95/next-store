@@ -1,14 +1,21 @@
-import { getCart } from '@/actions/db/carts';
+import { getCartAction } from '@/actions/db/carts';
 import CartCard from '@/components/cart/card';
-import React from 'react';
 
 async function CartPage() {
-  const cart = await getCart();
+  const cart = await getCartAction();
+
+  const hasCartItems = cart.length > 0;
+
+  if (!hasCartItems) {
+    return (
+      <div className='container'>
+        <h1>Your cart is empty</h1>
+      </div>
+    );
+  }
 
   return (
     <div className='container'>
-      {/* <pre>{JSON.stringify(cart, null, 2)}</pre> */}
-
       <div className='flex flex-col items-start space-y-3'>
         {cart.map((item) => (
           <CartCard key={item.id} cartProduct={item} />

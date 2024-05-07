@@ -5,7 +5,7 @@ import { unstable_cache as cache, revalidateTag } from 'next/cache';
 
 const cartId = 1;
 
-export const getCart = cache(
+export const getCartAction = cache(
   async () => {
     const cart = await prisma.cartProducts.findMany({
       where: {
@@ -24,7 +24,7 @@ export const getCart = cache(
   }
 );
 
-export const addToCart = async (productId: number) => {
+export const addToCartAction = async (productId: number) => {
   try {
     await prisma.cartProducts.create({
       data: {
@@ -40,7 +40,7 @@ export const addToCart = async (productId: number) => {
   }
 };
 
-export const removeCartProduct = async (id: number) => {
+export const removeCartProductAction = async (id: number) => {
   try {
     await prisma.cartProducts.delete({
       where: {

@@ -1,6 +1,6 @@
 'use client';
 
-import { addToCart } from '@/actions/db/carts';
+import { addToCartAction } from '@/actions/db/carts';
 import { Product } from '@prisma/client';
 import React, { useState } from 'react';
 
@@ -13,7 +13,7 @@ function AddToCart({ product }: Props) {
 
   async function ATC(id: number) {
     setLoading(() => true);
-    await addToCart(id);
+    await addToCartAction(id);
     setLoading(() => false);
   }
 

@@ -1,7 +1,5 @@
-import { getCart } from '@/actions/db/carts';
+import { getCartAction, removeCartProductAction } from '@/actions/db/carts';
 import { Button } from '@/components/ui/button';
-// import { Input } from "@/components/ui/input"
-// import { Label } from "@/components/ui/label"
 import {
   Sheet,
   SheetClose,
@@ -12,9 +10,12 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
+import RemovecartProduct from '../cart/remove-cart-product';
 
 export async function SideNavigation() {
-  const cartItems = await getCart();
+  const cartItems = await getCartAction();
+
+  const hasCartItems = cartItems.length > 0;
 
   return (
     <Sheet>
@@ -31,9 +32,21 @@ export async function SideNavigation() {
         <div className='grid gap-4 py-4'>
           <div className='grid grid-cols-4 items-center gap-4'>
             <ul>
-              {cartItems.map((item) => (
-                <li key={item.id}>{item.product.name}</li>
-              ))}
+              {!hasCartItems ? (
+                <li className='whitespace-nowrap'>Your cart is empty</li>
+              ) : (
+                cartItems.map((item) => (
+                  <li key={item.id} className='flex whitespace-nowrap'>
+                    {item.product.name}
+                    <RemovecartProduct
+                      removeFromCart={async () => {
+                        'use server';
+                        await removeCartProductAction(item.id);
+                      }}
+                    />
+                  </li>
+                ))
+              )}
             </ul>
           </div>
         </div>

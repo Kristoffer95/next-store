@@ -1,8 +1,8 @@
-import { createProduct, getProducts } from '@/actions/db/products';
+import { createProductAction, getProductsAction } from '@/actions/db/products';
 import ProductCard from '@/components/products/product-card';
 
 export default async function ProductsPage() {
-  const products = await getProducts();
+  const products = await getProductsAction();
 
   return (
     <div className='py-[50px]'>
@@ -15,7 +15,7 @@ export default async function ProductsPage() {
 
         {/* <pre>{JSON.stringify(products, null, 2)}</pre> */}
 
-        <form action={createProduct}>
+        <form action={createProductAction}>
           <input name='name' className='text-black' />
           <button type='submit'>Create</button>
         </form>
