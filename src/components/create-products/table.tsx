@@ -10,12 +10,15 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Product } from '@prisma/client';
+import EditProduct from './edit-product';
+import DeleteProduct from './delete-product';
+import { removeProductAction } from '@/actions/db/products';
 
 type Props = {
   products: Product[];
 };
 
-function CreateProductsTable({ products }: Props) {
+async function CreateProductsTable({ products }: Props) {
   return (
     <Table>
       <TableCaption>A list of your recent products.</TableCaption>
@@ -25,17 +28,34 @@ function CreateProductsTable({ products }: Props) {
           <TableHead>Name</TableHead>
           <TableHead>Description</TableHead>
           <TableHead className='text-right'>Amount</TableHead>
+          <TableHead className='text-right'>Actions</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        {products.map((product) => (
-          <TableRow key={product.id}>
-            <TableCell className='font-medium'>{product.id}</TableCell>
-            <TableCell>{product.name}</TableCell>
-            <TableCell>{product?.description}</TableCell>
-            <TableCell className='text-right'>{product.price}</TableCell>
+        {(products.length === 0 && (
+          <TableRow>
+            <TableCell colSpan={4} className='text-center'>
+              No products found.
+            </TableCell>
           </TableRow>
-        ))}
+        )) ||
+          products.map((product) => (
+            <TableRow key={product.id}>
+              <TableCell className='font-medium'>{product.id}</TableCell>
+              <TableCell className='capitalize'>{product.name}</TableCell>
+              <TableCell>{product?.description}</TableCell>
+              <TableCell className='text-right'>{product.price}</TableCell>
+              <TableCell className='text-right'>
+                <EditProduct /> |{' '}
+                <DeleteProduct
+                  deleteProduct={async () => {
+                    'use server';
+                    await removeProductAction(product.id);
+                  }}
+                />
+              </TableCell>
+            </TableRow>
+          ))}
       </TableBody>
     </Table>
   );

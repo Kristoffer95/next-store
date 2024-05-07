@@ -1,4 +1,4 @@
-import { createProductAction, getProductsAction } from '@/actions/db/products';
+import { getProductsAction } from '@/actions/db/products';
 import ProductCard from '@/components/products/product-card';
 
 export default async function ProductsPage() {
@@ -12,11 +12,6 @@ export default async function ProductsPage() {
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
-
-        <form action={createProductAction}>
-          <input name='name' className='text-black' />
-          <button type='submit'>Create</button>
-        </form>
       </div>
     </div>
   );

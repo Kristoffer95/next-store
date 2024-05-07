@@ -1,3 +1,4 @@
+import { createProductAction } from '@/actions/db/products';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -12,12 +13,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
 function AddProduct() {
-  async function createProduct() {
-    'use server';
-
-    console.log('create product');
-  }
-
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -30,29 +25,35 @@ function AddProduct() {
             {`Make changes to your profile here. Click save when you're done.`}
           </DialogDescription>
         </DialogHeader>
-        <form action={createProduct} className='grid gap-4 py-4'>
+        <form action={createProductAction} className='grid gap-4 py-4'>
           <div className='grid grid-cols-4 items-center gap-4'>
-            <Label htmlFor='name' className='text-right'>
+            <Label htmlFor='name' className='text-left'>
               Name
             </Label>
-            <Input
-              id='name'
-              defaultValue='Pedro Duarte'
-              className='col-span-3'
-            />
+            <Input id='name' name='name' className='col-span-3' required />
           </div>
           <div className='grid grid-cols-4 items-center gap-4'>
-            <Label htmlFor='username' className='text-right'>
-              Username
+            <Label htmlFor='description' className='text-left'>
+              Description
+            </Label>
+            <Input id='description' name='description' className='col-span-3' />
+          </div>
+          <div className='grid grid-cols-4 items-center gap-4'>
+            <Label htmlFor='price' className='text-left'>
+              Price
             </Label>
             <Input
-              id='username'
-              defaultValue='@peduarte'
+              id='price'
+              name='price'
               className='col-span-3'
+              type='number'
+              required
             />
           </div>
           <DialogFooter>
-            <Button type='submit'>Save changes</Button>
+            <DialogTrigger asChild>
+              <Button type='submit'>Save changes</Button>
+            </DialogTrigger>
           </DialogFooter>
         </form>
       </DialogContent>
