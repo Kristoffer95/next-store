@@ -1,8 +1,13 @@
 'use client';
 
-import { addToCartAction } from '@/actions/db/carts';
 import { Product } from '@prisma/client';
-import React, { useState } from 'react';
+import { useState } from 'react';
+
+// Actions
+import { addToCartAction } from '@/actions/db/carts';
+
+// icons
+import { PiShoppingCartBold } from 'react-icons/pi';
 
 type Props = {
   product: Product;
@@ -21,9 +26,10 @@ function AddToCart({ product }: Props) {
     <button
       type='submit'
       onClick={() => ATC(product?.id)}
-      className={`w-full py-3 text-lg rounded-sm , ${
+      className={`flex items-center justify-center bg-gray-900 px-2 py-2 text-sm text-white transition hover:bg-gray-700 , ${
         loading ? 'bg-green-200 text-black' : 'bg-green-500'
       }`}>
+      <PiShoppingCartBold className='text-xl mr-2' />
       {loading ? 'Adding to cart...' : 'Add to cart'}
     </button>
   );

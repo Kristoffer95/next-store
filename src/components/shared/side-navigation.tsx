@@ -1,4 +1,10 @@
+// actions
 import { getCartAction, removeCartProductAction } from '@/actions/db/carts';
+
+// icons
+import { PiShoppingCartSimpleLight } from 'react-icons/pi';
+
+// shadcn
 import { Button } from '@/components/ui/button';
 import {
   Sheet,
@@ -20,7 +26,9 @@ export async function SideNavigation() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant='outline'>Open</Button>
+        <div className='h-full flex items-center'>
+          <PiShoppingCartSimpleLight className='text-2xl' />
+        </div>
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>
