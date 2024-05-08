@@ -1,3 +1,5 @@
+'use client';
+
 import { createProductAction } from '@/actions/db/products';
 import { Button } from '@/components/ui/button';
 import {
@@ -11,10 +13,32 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { useEffect, useState } from 'react';
+import { useFormState, useFormStatus } from 'react-dom';
+
+function Submit() {
+  const status = useFormStatus();
+
+  return (
+    <Button type='submit' disabled={status.pending}>
+      {status.pending ? 'Saving...' : 'Save changes'}
+    </Button>
+  );
+}
 
 function AddProduct() {
+  const [showDialog, setShowDialog] = useState(false);
+
+  const [state, formAction] = useFormState(createProductAction, null);
+
+  useEffect(() => {
+    if (state !== null) {
+      setShowDialog(false);
+    }
+  }, [state]);
+
   return (
-    <Dialog>
+    <Dialog open={showDialog} onOpenChange={setShowDialog}>
       <DialogTrigger asChild>
         <Button>Add Product</Button>
       </DialogTrigger>
@@ -25,7 +49,8 @@ function AddProduct() {
             {`Make changes to your profile here. Click save when you're done.`}
           </DialogDescription>
         </DialogHeader>
-        <form action={createProductAction} className='grid gap-4 py-4'>
+
+        <form action={formAction} className='grid gap-4 py-4'>
           <div className='grid grid-cols-4 items-center gap-4'>
             <Label htmlFor='name' className='text-left'>
               Name
@@ -51,9 +76,9 @@ function AddProduct() {
             />
           </div>
           <DialogFooter>
-            <DialogTrigger asChild>
-              <Button type='submit'>Save changes</Button>
-            </DialogTrigger>
+            {/* <DialogTrigger asChild={false}> */}
+            <Submit />
+            {/* </DialogTrigger> */}
           </DialogFooter>
         </form>
       </DialogContent>

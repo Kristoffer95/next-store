@@ -30,11 +30,14 @@ export const getProductAction = cache(
   }
 );
 
-export const createProductAction = async (formData: FormData) => {
+export const createProductAction = async (
+  prevState: any,
+  formData: FormData
+) => {
   const { name, price, description } = Object.fromEntries(formData.entries());
 
   try {
-    await prisma.product.create({
+    const product = await prisma.product.create({
       data: {
         name: name as string,
         price: +price as number,
@@ -42,6 +45,8 @@ export const createProductAction = async (formData: FormData) => {
       },
     });
     revalidateTag('products');
+
+    return product;
   } catch (error) {
     throw new Error('Failed to create product' + error);
   }
@@ -55,6 +60,9 @@ export const removeProductAction = async (id: number) => {
       },
     });
     revalidateTag('products');
+
+    // for `onDelete: 'CASCADE'` in prisma schema
+    revalidateTag('cart');
   } catch (error) {
     throw new Error('Failed to remove product' + error);
   }
