@@ -76,9 +76,7 @@ function AddProduct() {
             />
           </div>
           <DialogFooter>
-            {/* <DialogTrigger asChild={false}> */}
             <Submit />
-            {/* </DialogTrigger> */}
           </DialogFooter>
         </form>
       </DialogContent>

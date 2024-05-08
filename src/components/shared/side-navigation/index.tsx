@@ -29,7 +29,9 @@ export async function SideNavigation() {
     <Sheet>
       <SheetTrigger asChild>
         <div className='h-full flex items-center relative'>
-          <PiShoppingCartSimpleLight className='text-2xl' />
+          <button>
+            <PiShoppingCartSimpleLight className='text-2xl' />
+          </button>
           <div
             className='absolute bottom-0 -right-2 bg-green-500 
             text-white text-[10px] size-5 flex justify-center 

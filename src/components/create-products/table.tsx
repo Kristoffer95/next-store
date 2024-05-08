@@ -34,7 +34,7 @@ async function CreateProductsTable({ products }: Props) {
       <TableBody>
         {(products.length === 0 && (
           <TableRow>
-            <TableCell colSpan={4} className='text-center'>
+            <TableCell colSpan={5} className='text-center'>
               No products found.
             </TableCell>
           </TableRow>
