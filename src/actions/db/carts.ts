@@ -26,6 +26,28 @@ export const getCartAction = cache(
 
 export const addToCartAction = async (productId: number) => {
   try {
+    // check if product already exists in cart
+    const product = await prisma.cartProducts.findFirst({
+      where: {
+        productId,
+        cartId,
+      },
+    });
+
+    if (product) {
+      await prisma.cartProducts.update({
+        where: {
+          id: product.id,
+        },
+        data: {
+          quantity: product.quantity + 1,
+        },
+      });
+
+      revalidateTag('cart');
+      return;
+    }
+
     await prisma.cartProducts.create({
       data: {
         productId,

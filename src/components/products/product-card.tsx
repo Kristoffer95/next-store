@@ -30,13 +30,15 @@ function ProductCard({ product }: Props) {
       </Link>
       <div className='mt-4 px-5 pb-5'>
         <a href='#'>
-          <h5 className='text-xl tracking-tight text-slate-900'>
+          <h5 className='text-xl tracking-tight text-slate-900 capitalize'>
             {product.name}
           </h5>
         </a>
         <div className='mt-2 mb-5 flex items-center justify-between'>
           <p>
-            <span className='text-3xl font-bold text-slate-900'>$79</span>
+            <span className='text-3xl font-bold text-slate-900'>
+              ${product.price}
+            </span>
             <span className='text-sm text-slate-900 line-through'>$99</span>
           </p>
         </div>
