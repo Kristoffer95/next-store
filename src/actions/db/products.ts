@@ -52,6 +52,33 @@ export const createProductAction = async (
   }
 };
 
+export const updateProductAction = async (
+  prevState: any,
+  formData: FormData
+) => {
+  const { id, name, price, description } = Object.fromEntries(
+    formData.entries()
+  );
+
+  try {
+    const product = await prisma.product.update({
+      where: {
+        id: +id,
+      },
+      data: {
+        name: name as string,
+        price: +price as number,
+        description: description as string,
+      },
+    });
+    revalidateTag('products');
+
+    return product;
+  } catch (error) {
+    throw new Error('Failed to update product' + error);
+  }
+};
+
 export const removeProductAction = async (id: number) => {
   try {
     await prisma.product.delete({

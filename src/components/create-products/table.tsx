@@ -10,9 +10,9 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Product } from '@prisma/client';
-import EditProduct from './edit-product';
 import DeleteProduct from './delete-product';
 import { removeProductAction } from '@/actions/db/products';
+import ProductForm from './product-form';
 
 type Props = {
   products: Product[];
@@ -46,7 +46,7 @@ async function CreateProductsTable({ products }: Props) {
               <TableCell>{product?.description}</TableCell>
               <TableCell className='text-right'>{product.price}</TableCell>
               <TableCell className='text-right'>
-                <EditProduct /> |{' '}
+                <ProductForm actionType='edit' product={product} /> |{' '}
                 <DeleteProduct
                   deleteProduct={async () => {
                     'use server';

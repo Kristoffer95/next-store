@@ -42,12 +42,14 @@ function DeleteProduct({ deleteProduct }: Props) {
               Cancel
             </Button>
           </DialogTrigger>
-          <Button
-            type='button'
-            className='bg-red-500 hover:bg-red-300'
-            onClick={executeDelete}>
-            Confirm
-          </Button>
+          <DialogTrigger asChild>
+            <Button
+              type='button'
+              className='bg-red-500 hover:bg-red-300'
+              onClick={executeDelete}>
+              Confirm
+            </Button>
+          </DialogTrigger>
         </DialogFooter>
       </DialogContent>
     </Dialog>

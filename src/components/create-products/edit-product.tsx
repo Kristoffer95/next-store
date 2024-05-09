@@ -1,12 +1,9 @@
 import React from 'react';
 import { PiNotePencilLight } from 'react-icons/pi';
+import ProductForm from './product-form';
 
 function EditProduct() {
-  return (
-    <button className='text-blue-500'>
-      <PiNotePencilLight />
-    </button>
-  );
+  return <ProductForm actionType='edit' />;
 }
 
 export default EditProduct;
