@@ -1,5 +1,4 @@
 'use server';
-import type { CreateUserAction } from '@/types/auth';
 import { prisma } from '@/utils/prisma';
 import { revalidateTag, unstable_cache as cache } from 'next/cache';
 
