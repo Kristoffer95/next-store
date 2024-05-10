@@ -1,4 +1,4 @@
-import AuthForm from '@/components/auth/form';
+import AuthForm from '@/components/auth/form/index';
 import React from 'react';
 
 function Login() {
