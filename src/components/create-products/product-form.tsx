@@ -92,9 +92,8 @@ function ProductForm({ actionType = 'create', product }: Props) {
               id='id'
               name='id'
               className='col-span-3'
-              required
               type='number'
-              defaultValue={product?.id}
+              defaultValue={product?.id || undefined}
             />
           </div>
           <div className='grid grid-cols-4 items-center gap-4'>
