@@ -15,6 +15,7 @@
 [ ] - Protected Routes
 [ ] - inaccessible when !authenticated : ['/user', '/checkout', ]
 [ ] - inaccessible when authenticated: ['/login', '/register']
+[ ] - encrypt password with bcrypt
 
 # Version 2 Features
 
