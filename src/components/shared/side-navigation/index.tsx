@@ -42,7 +42,7 @@ export async function SideNavigation() {
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>
-          <SheetTitle>Edit profile</SheetTitle>
+          <SheetTitle>Cart</SheetTitle>
           <SheetDescription>
             Make changes to your profile here. Click save when youre done.
           </SheetDescription>

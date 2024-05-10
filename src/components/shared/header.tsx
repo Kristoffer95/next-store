@@ -26,6 +26,9 @@ async function Header() {
             <Link className='py-2 px-4' href='/profile'>
               Profile
             </Link>
+            <Link href={'/auth'}>
+              <Button>Auth Page</Button>
+            </Link>
             {/* <Link className='py-2 px-4' href='/random'>
               Random
             </Link> */}
@@ -34,6 +37,9 @@ async function Header() {
           <div className='flex items-center gap-3'>
             {!session ? (
               <>
+                <Link href={'/auth'}>
+                  <Button>Auth Page</Button>
+                </Link>
                 <Link href={'/api/auth/signin'}>
                   <Button>Sign In</Button>
                 </Link>

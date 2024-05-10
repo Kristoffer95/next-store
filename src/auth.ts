@@ -33,9 +33,6 @@ const providers: Provider[] = [
         throw new Error('User not found.');
       }
 
-      console.log('user');
-      console.log(user);
-
       return user;
     },
   }),
