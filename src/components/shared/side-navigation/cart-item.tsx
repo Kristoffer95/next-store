@@ -1,14 +1,14 @@
 import { removeCartProductAction } from '@/actions/db/carts';
 import RemovecartProduct from '@/components/cart/remove-cart-product';
-import { CartProducts, Product } from '@prisma/client';
+import { Product } from '@/types/stripe/product';
 import Image from 'next/image';
 import React from 'react';
 
 type Props = {
-  item: CartProducts & { product: Product };
+  product: Product;
 };
 
-function CartItem({ item }: Props) {
+function CartItemComponent({ product }: Props) {
   return (
     <div className='flex border rounded'>
       {/* image */}
@@ -25,21 +25,21 @@ function CartItem({ item }: Props) {
       </div>
       <div className='w-[calc(100%_-_80px)] px-3 py-3 flex justify-between'>
         <div className='flex flex-col justify-between h-full'>
-          <h5 className='text-lg capitalize'>{item.product.name}</h5>
+          <h5 className='text-lg capitalize'>{product.name}</h5>
           <p className='text-sm'>$100.00</p>
         </div>
         <div className='flex flex-col justify-between items-end h-full'>
           <RemovecartProduct
             removeFromCart={async () => {
               'use server';
-              await removeCartProductAction(item.id);
+              await removeCartProductAction(product.id);
             }}
           />
-          <p className='text-sm'>Qty: {item.quantity}</p>
+          <p className='text-sm'>Qty: {product.cartItem?.quantity}</p>
         </div>
       </div>
     </div>
   );
 }
 
-export default CartItem;
+export default CartItemComponent;

@@ -5,6 +5,7 @@ import Signout from './signout';
 import { auth, signIn, signOut } from '@/auth';
 import { Button } from '../ui/button';
 import SigninGithub from './signin-github';
+import { TemporaryDropdown } from './temporary-dropdown';
 
 async function Header() {
   const session = await auth();
@@ -17,18 +18,7 @@ async function Header() {
             <Link className='py-2 px-4' href='/'>
               Home
             </Link>
-            <Link className='py-2 px-4' href='/products'>
-              Products
-            </Link>
-            <Link className='py-2 px-4' href='/create-product'>
-              Create Product
-            </Link>
-            <Link className='py-2 px-4' href='/profile'>
-              Profile
-            </Link>
-            <Link href={'/auth'}>
-              <Button>Auth Page</Button>
-            </Link>
+            <TemporaryDropdown />
             {/* <Link className='py-2 px-4' href='/random'>
               Random
             </Link> */}

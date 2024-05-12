@@ -1,5 +1,7 @@
 'use server';
 
+import { stripe } from '@/hooks';
+import { Product } from '@/types/stripe/product';
 import { prisma } from '@/utils/prisma';
 import { unstable_cache as cache, revalidateTag } from 'next/cache';
 
@@ -7,16 +9,37 @@ const cartId = 1;
 
 export const getCartAction = cache(
   async () => {
-    const cart = await prisma.cartProducts.findMany({
-      where: {
-        cartId,
-      },
-      include: {
-        product: true,
-      },
-    });
+    try {
+      const cartItem = await prisma.cartItem.findMany({
+        where: {
+          cartId,
+        },
+      });
 
-    return cart;
+      const productsRaw = await stripe.products.list({
+        expand: ['data.default_price'],
+      });
+
+      console.log('productsRaw', productsRaw);
+
+      const products: Product[] = productsRaw.data;
+
+      const filteredProducts =
+        products.filter((product: Product) =>
+          cartItem.map((item) => item.productId).includes(product.id)
+        ) || [];
+
+      const transformedProducts = filteredProducts.map((product: Product) => {
+        return {
+          ...product,
+          cartItem: cartItem.find((item) => item.productId === product.id),
+        };
+      });
+
+      return transformedProducts;
+    } catch (error) {
+      throw new Error('Failed getting cart items' + error);
+    }
   },
   ['cart'],
   {
@@ -24,49 +47,48 @@ export const getCartAction = cache(
   }
 );
 
-export const addToCartAction = async (productId: number) => {
+export const addToCartAction = async (productId: string) => {
   try {
-    // check if product already exists in cart
-    const product = await prisma.cartProducts.findFirst({
+    const productExists = await prisma.cartItem.findFirst({
       where: {
         productId,
         cartId,
       },
     });
 
-    if (product) {
-      await prisma.cartProducts.update({
+    if (productExists) {
+      await prisma.cartItem.update({
         where: {
-          id: product.id,
+          id: productExists.id,
         },
         data: {
-          quantity: product.quantity + 1,
+          quantity: productExists.quantity + 1,
         },
       });
-
-      revalidateTag('cart');
-      return;
+    } else {
+      await prisma.cartItem.create({
+        data: {
+          productId,
+          cartId,
+          // TODO: to be updated to the actual quantity
+          quantity: 1,
+        },
+      });
     }
-
-    await prisma.cartProducts.create({
-      data: {
-        productId,
-        cartId,
-        quantity: 1,
-      },
-    });
 
     revalidateTag('cart');
   } catch (error) {
     throw new Error('Failed adding product to cart' + error);
+  } finally {
   }
 };
 
-export const removeCartProductAction = async (id: number) => {
+export const removeCartProductAction = async (id: string) => {
   try {
-    await prisma.cartProducts.delete({
+    await prisma.cartItem.delete({
       where: {
-        id,
+        productId: id,
+        cartId,
       },
     });
 

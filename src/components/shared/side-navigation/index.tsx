@@ -1,5 +1,5 @@
 // actions
-import { getCartAction, removeCartProductAction } from '@/actions/db/carts';
+import { getCartAction } from '@/actions/db/carts';
 
 // icons
 import { PiShoppingCartSimpleLight } from 'react-icons/pi';
@@ -16,14 +16,15 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
-import RemovecartProduct from '../../cart/remove-cart-product';
+
 import CartItem from './cart-item';
+import type { Product } from '@/types/stripe/product';
 
 export async function SideNavigation() {
   const cartItems = await getCartAction();
 
   const totalCartItems = cartItems.length;
-  const hasCartItems = cartItems.length > 0;
+  const hasCartItems = totalCartItems > 0;
 
   return (
     <Sheet>
@@ -52,9 +53,9 @@ export async function SideNavigation() {
             {!hasCartItems ? (
               <li className='whitespace-nowrap'>Your cart is empty</li>
             ) : (
-              cartItems.map((item) => (
+              cartItems.map((item: Product) => (
                 <li key={item.id}>
-                  <CartItem item={item} />
+                  <CartItem product={item} />
                 </li>
               ))
             )}

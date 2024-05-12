@@ -22,8 +22,6 @@ function AuthRegister() {
   const [state, action] = useFormState(createUserAction, null);
 
   useEffect(() => {
-    console.log(state);
-
     if (state !== null) {
       toast({
         // title: 'Scheduled: Catch up ',

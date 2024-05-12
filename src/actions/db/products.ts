@@ -1,12 +1,15 @@
 'use server';
+import { stripe } from '@/hooks';
 import { prisma } from '@/utils/prisma';
 import { revalidateTag, unstable_cache as cache } from 'next/cache';
 
 export const getProductsAction = cache(
   async () => {
-    const products = await prisma.product.findMany();
+    const products = await stripe.products.list({
+      expand: ['data.default_price'],
+    });
 
-    return products;
+    return products?.data || [];
   },
   ['products'], // not sure yet how this works
   {

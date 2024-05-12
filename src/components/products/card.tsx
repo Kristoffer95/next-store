@@ -1,9 +1,10 @@
-import { Product } from '@prisma/client';
-import Image from 'next/image';
-
-// components
-import AddToCart from './add-to-cart';
+import React from 'react';
+import { Product } from '@/types/stripe/product';
 import Link from 'next/link';
+import Image from 'next/image';
+import { Button } from '../ui/button';
+import { PiShoppingCartBold } from 'react-icons/pi';
+import AddToCart from './add-to-cart';
 
 type Props = {
   product: Product;
@@ -23,10 +24,6 @@ function ProductCard({ product }: Props) {
           width={320}
           height={300}
         />
-
-        {/* <div className='absolute -right-16 bottom-0 mr-2 mb-4 space-y-2 transition-all duration-300 group-hover:right-0'>
-          <button className='flex h-10 w-10 items-center justify-center bg-gray-900 text-white transition hover:bg-gray-700'></button>
-        </div> */}
       </Link>
       <div className='mt-4 px-5 pb-5'>
         <a href='#'>
@@ -37,7 +34,7 @@ function ProductCard({ product }: Props) {
         <div className='mt-2 mb-5 flex items-center justify-between'>
           <p>
             <span className='text-3xl font-bold text-slate-900'>
-              ${product.price}
+              ${product.default_price.unit_amount / 100}
             </span>
             <span className='text-sm text-slate-900 line-through'>$99</span>
           </p>
@@ -47,5 +44,16 @@ function ProductCard({ product }: Props) {
     </div>
   );
 }
+
+// function ProductCard({ product }: Props) {
+//   return (
+//     <div className=''>
+//       <h1>{product.name}</h1>
+//       <p>{product.description}</p>
+//       <p>{product.default_price.currency}</p>
+//       {/* <pre>{JSON.stringify(product, null, 2)}</pre> */}
+//     </div>
+//   );
+// }
 
 export default ProductCard;
