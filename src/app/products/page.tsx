@@ -1,16 +1,16 @@
-import { getProducts } from '@/actions/stripe/products';
-import ProductCard from '@/components/products/card';
+import ProductCards from '@/components/products/cards';
+import { Suspense } from 'react';
 
 async function ProductsPage() {
-  const products = await getProducts();
   return (
     <div>
       <div className='py-[50px]'>
         <div className='container'>
           <div className='cards grid grid-cols-4 gap-x-5 gap-y-10'>
-            {products.map((product) => {
-              return <ProductCard product={product} key={product.id} />;
-            })}
+            <Suspense
+              fallback={<h1 className='text-2xl'>Loading products...</h1>}>
+              <ProductCards />
+            </Suspense>
           </div>
         </div>
       </div>

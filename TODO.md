@@ -8,10 +8,11 @@
 [ ] - Show cart total price
 [x] - Show quantity on each product on cart
 [ ] - Show cart total items
-[ ] - Register User
-[ ] - User can login with credenitials
-[ ] - User can login with providers(github, google)
-[ ] - User can upload images for product(adding and updating product)
+[x] - Register User
+[x] - User can login with credenitials
+[-] - User can login with providers(github, google)
+[x] - User can logout
+[x] - User can see profile
 [ ] - Protected Routes
 [ ] - inaccessible when !authenticated : ['/user', '/checkout', ]
 [ ] - inaccessible when authenticated: ['/login', '/register']

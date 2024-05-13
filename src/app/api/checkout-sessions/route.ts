@@ -1,5 +1,4 @@
 import { getCartAction } from '@/actions/db/carts';
-import { redirect } from 'next/navigation';
 import { NextRequest, NextResponse } from 'next/server';
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
@@ -7,8 +6,6 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 export async function POST(req: NextRequest, res: NextResponse) {
   try {
     const cartItems = await getCartAction();
-
-    console.log('cartItems', cartItems);
 
     const line_items = cartItems.map((item) => ({
       price: item.default_price.id,
@@ -22,8 +19,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
       success_url: 'http://localhost:3000/checkout?success=true',
       cancel_url: 'http://localhost:3000/checkout?canceled=true',
     });
-
-    console.log(session);
 
     return NextResponse.redirect(session.url, {
       status: 303,
