@@ -24,7 +24,7 @@ import { auth } from '@/auth';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
-export async function SideNavigation() {
+export default async function CartSlider() {
   const session = await auth();
 
   /**

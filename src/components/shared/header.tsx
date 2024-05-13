@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import React from 'react';
-import { SideNavigation } from './side-navigation';
+import CartSlider from './cart-slider';
 import Signout from './signout';
 import { auth, signIn, signOut } from '@/auth';
 import { Button } from '../ui/button';
@@ -47,7 +47,7 @@ async function Header() {
               />
             )}
 
-            <SideNavigation />
+            <CartSlider />
           </div>
         </div>
       </div>
