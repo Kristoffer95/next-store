@@ -26,7 +26,10 @@ function CartItemComponent({ product }: Props) {
       <div className='w-[calc(100%_-_80px)] px-3 py-3 flex justify-between'>
         <div className='flex flex-col justify-between h-full'>
           <h5 className='text-lg capitalize'>{product.name}</h5>
-          <p className='text-sm'>$100.00</p>
+          <p className='text-sm'>
+            {product.default_price.currency === 'php' ? '₱' : '$'}
+            {product.default_price.unit_amount / 100}
+          </p>
         </div>
 
         <div className='flex flex-col justify-between items-end h-full'>

@@ -81,13 +81,6 @@ export function TemporaryDropdown() {
           </Link>
           <DropdownMenuSeparator />
           {/* old routes */}
-          <Link href='/old-page-products'>
-            <DropdownMenuItem>
-              <User className='mr-2 h-4 w-4' />
-              <span>Old | Products</span>
-              <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-            </DropdownMenuItem>
-          </Link>
           <Link href='/old-page-create-product'>
             <DropdownMenuItem>
               <User className='mr-2 h-4 w-4' />

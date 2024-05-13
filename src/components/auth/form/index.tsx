@@ -11,6 +11,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import AuthRegister from './register';
+import AuthLogin from './login';
 
 export default function AuthForm() {
   return (
@@ -20,27 +21,7 @@ export default function AuthForm() {
         <TabsTrigger value='register'>Register</TabsTrigger>
       </TabsList>
       <TabsContent value='login'>
-        <Card>
-          <CardHeader>
-            <CardTitle>Login</CardTitle>
-            <CardDescription>
-              {`Make changes to your account here. Click save when you're done.`}
-            </CardDescription>
-          </CardHeader>
-          <CardContent className='space-y-2'>
-            <div className='space-y-1'>
-              <Label htmlFor='email'>Email</Label>
-              <Input id='email' />
-            </div>
-            <div className='space-y-1'>
-              <Label htmlFor='password'>Password</Label>
-              <Input id='password' type='password' />
-            </div>
-          </CardContent>
-          <CardFooter>
-            <Button>Save changes</Button>
-          </CardFooter>
-        </Card>
+        <AuthLogin />
       </TabsContent>
       <TabsContent value='register'>
         <AuthRegister />

@@ -13,25 +13,21 @@ const prisma = new PrismaClient();
 const providers: Provider[] = [
   Github,
   Credentials({
-    credentials: { password: { label: 'Password', type: 'password' } },
+    credentials: {
+      email: { label: 'Email', type: 'email' },
+      password: { label: 'Password', type: 'password' },
+    },
     authorize: async (creds) => {
-      let user = null;
+      const { email, password } = creds;
 
-      if (creds.password !== 'pass') return null;
+      const user = await prisma.user.findUnique({
+        where: {
+          email: email as string,
+          password: password as string,
+        },
+      });
 
-      try {
-        user = await prisma.user.findUnique({
-          where: {
-            email: 'test@test.com',
-          },
-        });
-
-        if (!user) {
-          throw new Error('User not found.');
-        }
-      } catch (error) {
-        throw new Error('User not found.');
-      }
+      if (!user) return null;
 
       return user;
     },
