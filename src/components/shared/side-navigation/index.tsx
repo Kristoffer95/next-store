@@ -21,6 +21,13 @@ import CartItem from './cart-item';
 import type { Product } from '@/types/stripe/product';
 
 export async function SideNavigation() {
+  /**
+   * TODO: Can be optimized, currernly fetching all cart items
+   * and filtering them in the component. The better approach
+   * would be getting CartItems based on cartId and pass it to <CartItem />
+   * component. then in the component, fetch the stripe product based on
+   * the productId.
+   */
   const cartItems = await getCartAction();
 
   const totalCartItems = cartItems.length;

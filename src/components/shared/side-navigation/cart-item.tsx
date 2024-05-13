@@ -28,11 +28,12 @@ function CartItemComponent({ product }: Props) {
           <h5 className='text-lg capitalize'>{product.name}</h5>
           <p className='text-sm'>$100.00</p>
         </div>
+
         <div className='flex flex-col justify-between items-end h-full'>
           <RemovecartProduct
             removeFromCart={async () => {
               'use server';
-              await removeCartProductAction(product.id);
+              await removeCartProductAction(product.cartItem?.id);
             }}
           />
           <p className='text-sm'>Qty: {product.cartItem?.quantity}</p>

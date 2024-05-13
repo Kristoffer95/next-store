@@ -20,8 +20,6 @@ export const getCartAction = cache(
         expand: ['data.default_price'],
       });
 
-      console.log('productsRaw', productsRaw);
-
       const products: Product[] = productsRaw.data;
 
       const filteredProducts =
@@ -83,11 +81,13 @@ export const addToCartAction = async (productId: string) => {
   }
 };
 
-export const removeCartProductAction = async (id: string) => {
+export const removeCartProductAction = async (id: string | undefined) => {
+  if (!id) throw new Error('No product id provided');
+
   try {
     await prisma.cartItem.delete({
       where: {
-        productId: id,
+        id: id,
         cartId,
       },
     });
