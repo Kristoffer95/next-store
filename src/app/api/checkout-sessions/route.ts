@@ -1,3 +1,4 @@
+import { getCartAction } from '@/actions/db/carts';
 import { redirect } from 'next/navigation';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -5,22 +6,18 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 export async function POST(req: NextRequest, res: NextResponse) {
   try {
+    const cartItems = await getCartAction();
+
+    console.log('cartItems', cartItems);
+
+    const line_items = cartItems.map((item) => ({
+      price: item.default_price.id,
+      quantity: item.cartItem?.quantity || 1,
+    }));
+
     // Create Checkout Sessions from body params.
     const session = await stripe.checkout.sessions.create({
-      line_items: [
-        // {
-        //   price: 'price_1PFHVx03TvHgAUFVeOULwOFi',
-        //   quantity: 1,
-        // },
-        {
-          price: 'price_1PFCOo03TvHgAUFVVkaUFjVL',
-          quantity: 1,
-        },
-        {
-          price: 'price_1PFCPP03TvHgAUFV7FilIwz1',
-          quantity: 3,
-        },
-      ],
+      line_items,
       mode: 'payment',
       success_url: 'http://localhost:3000/checkout?success=true',
       cancel_url: 'http://localhost:3000/checkout?canceled=true',

@@ -19,19 +19,13 @@ async function Header() {
               Home
             </Link>
             <TemporaryDropdown />
-            {/* <Link className='py-2 px-4' href='/random'>
-              Random
-            </Link> */}
           </div>
 
           <div className='flex items-center gap-3'>
             {!session ? (
               <>
                 <Link href={'/auth'}>
-                  <Button>Auth Page</Button>
-                </Link>
-                <Link href={'/api/auth/signin'}>
-                  <Button>Sign In</Button>
+                  <Button>Login / Register</Button>
                 </Link>
                 <SigninGithub
                   signIn={async () => {

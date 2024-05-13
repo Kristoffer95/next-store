@@ -5,7 +5,6 @@ import { getCartAction } from '@/actions/db/carts';
 import { PiShoppingCartSimpleLight } from 'react-icons/pi';
 
 // shadcn
-import { Button } from '@/components/ui/button';
 import {
   Sheet,
   SheetClose,
@@ -17,10 +16,17 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 
-import CartItem from './cart-item';
 import type { Product } from '@/types/stripe/product';
 
+import CartItem from './cart-item';
+import Checkout from './checkout';
+import { auth } from '@/auth';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+
 export async function SideNavigation() {
+  const session = await auth();
+
   /**
    * TODO: Can be optimized, currernly fetching all cart items
    * and filtering them in the component. The better approach
@@ -70,7 +76,13 @@ export async function SideNavigation() {
         </div>
         <SheetFooter>
           <SheetClose asChild>
-            <Button type='submit'>Save changes</Button>
+            {session ? (
+              <Checkout />
+            ) : (
+              <Link href='/auth'>
+                <Button>Login to checkout</Button>
+              </Link>
+            )}
           </SheetClose>
         </SheetFooter>
       </SheetContent>

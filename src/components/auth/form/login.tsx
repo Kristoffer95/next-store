@@ -69,11 +69,10 @@ function AuthLogin() {
               id='password'
               type='password'
               name='password'
-              defaultValue='pass1'
+              defaultValue='pass'
             />
           </div>
           <div className='pt-4'>
-            {/* <Button onClick={() => loginUserAction()}>Login</Button> */}
             <LoginButton />
           </div>
         </form>
