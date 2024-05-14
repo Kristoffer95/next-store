@@ -6,8 +6,6 @@ export default async function Home() {
   return (
     <div className='container py-10'>
       <h1>Home Page</h1>
-      <h3 className='text-red-500'>This is staging branch</h3>
-      <pre>{session?.user?.name}</pre>
     </div>
   );
 }

@@ -13,9 +13,7 @@
 [-] - User can login with providers(github, google)
 [x] - User can logout
 [x] - User can see profile
-[ ] - Protected Routes
-[ ] - inaccessible when !authenticated : ['/user', '/checkout', ]
-[ ] - inaccessible when authenticated: ['/login', '/register']
+[x] - Protected Routes - Authenticated(ex. /profile) and Unauthenticated(ex. /auth)
 [ ] - encrypt password with bcrypt
 
 # Version 2 Features

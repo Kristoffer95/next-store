@@ -1,20 +1,26 @@
 import { auth } from './auth';
 
-import { NextRequest } from 'next/server';
+import { type NextRequest, NextResponse } from 'next/server';
 
-// export default auth((req) => {
-//   console.log('ROUTE: ', req.nextUrl.pathname);
-// });
+// async function isProtectedRoute(req: NextRequest) {}
 
-// export const config = {
-//   matcher: ['/login'],
-// };
+export async function middleware(req: NextRequest) {
+  // await isProtectedRoute(req);
 
-export function middleware(req: NextRequest) {
-  const protectedRoutes = ['/login'];
+  const path = ['/profile'];
+  const session = await auth();
 
-  if (protectedRoutes.includes(req.nextUrl.pathname)) {
-    // console.log('ROUTE: ', req.nextUrl.pathname);
-    console.log('Protected Route');
+  // Protected Routes - Authenticated
+  if (path.includes(req.nextUrl.pathname) && !session) {
+    return NextResponse.redirect(new URL('/', req.url));
+  }
+
+  // Protected Routes - Unauthenticated
+  if (req.nextUrl.pathname === '/auth' && session) {
+    return NextResponse.redirect(new URL('/profile', req.url));
   }
 }
+
+export const config = {
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
+};
