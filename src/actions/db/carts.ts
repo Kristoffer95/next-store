@@ -81,13 +81,13 @@ export const addToCartAction = async (productId: string) => {
   }
 };
 
-export const removeCartProductAction = async (id: string | undefined) => {
+export const removeCartProductAction = async (id: number | undefined) => {
   if (!id) throw new Error('No product id provided');
 
   try {
     await prisma.cartItem.delete({
       where: {
-        id: id,
+        id: id?.toString(),
         cartId,
       },
     });
