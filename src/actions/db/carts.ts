@@ -81,7 +81,9 @@ export const addToCartAction = async (productId: string) => {
   }
 };
 
-export const removeCartProductAction = async (id: number | undefined) => {
+export const removeCartProductAction = async (
+  id: number | string | undefined
+) => {
   if (!id) throw new Error('No product id provided');
 
   try {
