@@ -1,9 +1,7 @@
 'use client';
 
-import { Button } from '../ui/button';
-
 function Signin({ signIn }: { signIn: () => void }) {
-  return <Button onClick={() => signIn()}>Sign In Github</Button>;
+  return <button onClick={() => signIn()}>Sign in with Github</button>;
 }
 
 export default Signin;

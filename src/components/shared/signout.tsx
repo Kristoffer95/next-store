@@ -3,7 +3,7 @@
 import { Button } from '../ui/button';
 
 function Signout({ signOut }: { signOut: () => void }) {
-  return <Button onClick={() => signOut()}>Sign Out</Button>;
+  return <button onClick={() => signOut()}>Sign Out</button>;
 }
 
 export default Signout;
