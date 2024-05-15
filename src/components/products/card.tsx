@@ -1,4 +1,3 @@
-import React from 'react';
 import { Product } from '@/types/stripe/product';
 import Link from 'next/link';
 import Image from 'next/image';
