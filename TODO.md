@@ -2,7 +2,7 @@
 
 [x] - Create product
 [x] - Add product to cart
-[ ] - Update cart product quantity
+[x] - Update cart product quantity
 [x] - Remove product from cart
 [x] - Show cart products
 [ ] - Show cart total price
