@@ -45,14 +45,18 @@ export const getCartAction = cache(
   }
 );
 
-export const addToCartAction = async (productId: string) => {
+export const addToCartAction = async (prevState: any, formData: FormData) => {
+  const { quantity, productId } = Object.fromEntries(formData.entries());
+
   try {
     const productExists = await prisma.cartItem.findFirst({
       where: {
-        productId,
+        productId: productId as string,
         cartId,
       },
     });
+
+    console.log('productExists', productExists);
 
     if (productExists) {
       await prisma.cartItem.update({
@@ -60,16 +64,17 @@ export const addToCartAction = async (productId: string) => {
           id: productExists.id,
         },
         data: {
-          quantity: productExists.quantity + 1,
+          quantity: productExists.quantity + +quantity,
         },
       });
     } else {
+      console.log('productId', productId);
+
       await prisma.cartItem.create({
         data: {
-          productId,
+          productId: productId as string,
           cartId,
-          // TODO: to be updated to the actual quantity
-          quantity: 1,
+          quantity: +quantity,
         },
       });
     }
@@ -77,7 +82,6 @@ export const addToCartAction = async (productId: string) => {
     revalidateTag('cart');
   } catch (error) {
     throw new Error('Failed adding product to cart' + error);
-  } finally {
   }
 };
 

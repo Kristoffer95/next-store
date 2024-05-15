@@ -1,15 +1,21 @@
 import { Product } from '@/types/stripe/product';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Button } from '../ui/button';
-import { PiShoppingCartBold } from 'react-icons/pi';
-import AddToCart from './add-to-cart';
+import CardForm from './card-form';
 
 type Props = {
   product: Product;
 };
 
 function ProductCard({ product }: Props) {
+  const currency = () => {
+    if (product.default_price.currency === 'php') {
+      return '₱';
+    }
+
+    return '$';
+  };
+
   return (
     <div className='group flex w-full max-w-xs flex-col overflow-hidden border border-gray-100 bg-white shadow-lg rounded-sm'>
       <Link
@@ -33,12 +39,13 @@ function ProductCard({ product }: Props) {
         <div className='mt-2 mb-5 flex items-center justify-between'>
           <p>
             <span className='text-3xl font-bold text-slate-900'>
-              ${product.default_price.unit_amount / 100}
+              {currency()}
+              {product.default_price.unit_amount / 100}
             </span>
             <span className='text-sm text-slate-900 line-through'>$99</span>
           </p>
         </div>
-        <AddToCart product={product} />
+        <CardForm product={product} />
       </div>
     </div>
   );
