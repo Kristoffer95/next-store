@@ -56,8 +56,6 @@ export const addToCartAction = async (prevState: any, formData: FormData) => {
       },
     });
 
-    console.log('productExists', productExists);
-
     if (productExists) {
       await prisma.cartItem.update({
         where: {
