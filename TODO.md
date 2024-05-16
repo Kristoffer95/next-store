@@ -5,9 +5,8 @@
 [x] - Update cart product quantity
 [x] - Remove product from cart
 [x] - Show cart products
-[ ] - Show cart total price
 [x] - Show quantity on each product on cart
-[ ] - Show cart total items
+[x] - Show cart total price
 [x] - Register User
 [x] - User can login with credenitials
 [-] - User can login with providers(github, google)
