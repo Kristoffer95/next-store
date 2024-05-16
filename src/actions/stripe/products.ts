@@ -2,14 +2,14 @@
 
 import { stripe } from '@/hooks';
 import { Product } from '@/types/stripe/product';
-import { unstable_cache as cache, revalidateTag } from 'next/cache';
+import { unstable_cache as cache } from 'next/cache';
 
 const cartId = 1;
 
 export const getProducts = cache(
   async () => {
     const stripeProducts = await stripe.products.list({
-      limit: 3,
+      limit: 10,
       expand: ['data.default_price'],
     });
 

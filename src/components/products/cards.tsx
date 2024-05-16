@@ -1,10 +1,8 @@
 'use client';
 
-import { getProducts } from '@/actions/stripe/products';
 import ProductCard from '@/components/products/card';
 import { Product } from '@/types/stripe/product';
-import { delay, motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 
 const fadeInAnimationVariants = {
   initial: {
@@ -21,18 +19,7 @@ const fadeInAnimationVariants = {
   }),
 };
 
-function ProductCards() {
-  const [products, setProducts] = useState<Product[]>([]);
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const products = await getProducts();
-      setProducts(products);
-    };
-
-    fetchProducts();
-  }, []);
-
+function ProductCards({ products }: { products: Product[] }) {
   return (
     <>
       {products.map((product, index) => (

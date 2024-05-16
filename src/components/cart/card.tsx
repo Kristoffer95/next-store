@@ -1,11 +1,12 @@
-import { CartProducts, Product } from '@prisma/client';
+// import { CartProducts, Product } from '@prisma/client';
 import React from 'react';
 import RemovecartProduct from './remove-cart-product';
 import { removeCartProductAction } from '@/actions/db/carts';
+import { Product } from '@/types/stripe/product';
 
 type Props = {
   // TODO: rename schema to CartProduct
-  cartProduct: CartProducts & {
+  cartProduct: any & {
     product: Product;
   };
 };

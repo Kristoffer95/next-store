@@ -13,33 +13,9 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// to be deleted
-model Product {
-  id           Int            @id @default(autoincrement())
-  name         String
-  description  String?
-  price        Float          @default(0)
-  createdAt    DateTime       @default(now())
-  updatedAt    DateTime       @updatedAt
-  cartProducts CartProducts[]
-}
-
-// To be deleted
-model CartProducts {
-  id        Int      @id @default(autoincrement())
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
-  productId Int
-  cart      Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
-  cartId    Int
-  quantity  Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
 model Cart {
-  id           Int            @id @default(autoincrement())
-  cartProducts CartProducts[]
-  cartItem     CartItem[]
+  id       Int        @id @default(autoincrement())
+  cartItem CartItem[]
 }
 
 model CartItem {

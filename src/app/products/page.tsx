@@ -1,7 +1,15 @@
+import { getProducts } from '@/actions/stripe/products';
 import ProductCards from '@/components/products/cards';
+import { revalidatePath } from 'next/cache';
 import { Suspense } from 'react';
 
+export const revalidate = 60 * 30; // 30min
+
 async function ProductsPage() {
+  revalidatePath('/products');
+
+  const products = await getProducts();
+
   return (
     <div>
       <div className='py-[50px]'>
@@ -9,7 +17,7 @@ async function ProductsPage() {
           <div className='cards grid grid-cols-4 gap-x-5 gap-y-10'>
             <Suspense
               fallback={<h1 className='text-2xl'>Loading products...</h1>}>
-              <ProductCards />
+              <ProductCards products={products} />
             </Suspense>
           </div>
         </div>
