@@ -23,6 +23,7 @@ import Checkout from './checkout';
 import { auth } from '@/auth';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import CartDetails from './cart-details';
 
 export default async function CartSlider() {
   const session = await auth();
@@ -61,30 +62,35 @@ export default async function CartSlider() {
             Make changes to your profile here. Click save when youre done.
           </SheetDescription>
         </SheetHeader>
-        <div className='w-full'>
-          <ul className='space-y-4 my-8'>
-            {!hasCartItems ? (
-              <li className='whitespace-nowrap'>Your cart is empty</li>
-            ) : (
-              cartItems.map((item: Product) => (
-                <li key={item.id}>
-                  <CartItem product={item} />
-                </li>
-              ))
-            )}
-          </ul>
+        <div className='flex flex-col justify-between h-[calc(100vh_-_124px)]'>
+          <div className='w-full'>
+            <ul className='space-y-4 my-8'>
+              {!hasCartItems ? (
+                <li className='whitespace-nowrap'>Your cart is empty</li>
+              ) : (
+                cartItems.map((item: Product) => (
+                  <li key={item.id}>
+                    <CartItem product={item} />
+                  </li>
+                ))
+              )}
+            </ul>
+          </div>
+          <SheetFooter>
+            <SheetClose asChild>
+              {session ? (
+                <div className='w-full'>
+                  <CartDetails cartItems={cartItems} />
+                  <Checkout />
+                </div>
+              ) : (
+                <Link href='/auth' className='w-full'>
+                  <Button className='w-full py-6'>Login to checkout</Button>
+                </Link>
+              )}
+            </SheetClose>
+          </SheetFooter>
         </div>
-        <SheetFooter>
-          <SheetClose asChild>
-            {session ? (
-              <Checkout />
-            ) : (
-              <Link href='/auth'>
-                <Button>Login to checkout</Button>
-              </Link>
-            )}
-          </SheetClose>
-        </SheetFooter>
       </SheetContent>
     </Sheet>
   );
