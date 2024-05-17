@@ -14,6 +14,7 @@
 [x] - User can see profile
 [x] - Protected Routes - Authenticated(ex. /profile) and Unauthenticated(ex. /auth)
 [ ] - encrypt password with bcrypt
+[ ] - Create cart when no cartId in cookies
 
 # Version 2 Features
 

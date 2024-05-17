@@ -1,5 +1,5 @@
 // actions
-import { getCartAction } from '@/actions/db/carts';
+import { createCartAction, getCartAction } from '@/actions/db/carts';
 
 // icons
 import { PiShoppingCartSimpleLight } from 'react-icons/pi';
@@ -18,15 +18,25 @@ import {
 
 import type { Product } from '@/types/stripe/product';
 
-import CartItem from './cart-item';
+import CartItemCard from './cart-item';
 import Checkout from './checkout';
 import { auth } from '@/auth';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import CartDetails from './cart-details';
+import { cookies } from 'next/headers';
+import { cartIdCookie } from '@/utils/cookies';
+import { CartItem } from '@prisma/client';
 
 export default async function CartSlider() {
   const session = await auth();
+
+  // async function setCookie() {
+  //   'use server';
+  //   cookies().set('name', 'lee');
+  // }
+
+  // await setCookie();
 
   /**
    * TODO: Can be optimized, currernly fetching all cart items
@@ -35,7 +45,10 @@ export default async function CartSlider() {
    * component. then in the component, fetch the stripe product based on
    * the productId.
    */
+
   const cartItems = await getCartAction();
+
+  // const cartItems = [] as any[];
 
   const totalCartItems = cartItems.length;
   const hasCartItems = totalCartItems > 0;
@@ -46,13 +59,13 @@ export default async function CartSlider() {
         <div className='h-full flex items-center relative'>
           <button>
             <PiShoppingCartSimpleLight className='text-2xl' />
-          </button>
-          <div
-            className='absolute bottom-0 -right-2 bg-green-500 
+            <div
+              className='absolute bottom-0 -right-2 bg-green-500 
             text-white text-[10px] size-5 flex justify-center 
             items-center rounded-full'>
-            {totalCartItems}
-          </div>
+              {totalCartItems}
+            </div>
+          </button>
         </div>
       </SheetTrigger>
       <SheetContent>
@@ -70,7 +83,7 @@ export default async function CartSlider() {
               ) : (
                 cartItems.map((item: Product) => (
                   <li key={item.id}>
-                    <CartItem product={item} />
+                    <CartItemCard product={item} />
                   </li>
                 ))
               )}

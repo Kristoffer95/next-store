@@ -2,17 +2,21 @@
 
 import { stripe } from '@/hooks';
 import { Product } from '@/types/stripe/product';
+import { cartIdCookie } from '@/utils/cookies';
 import { prisma } from '@/utils/prisma';
 import { unstable_cache as cache, revalidateTag } from 'next/cache';
+import { cookies } from 'next/headers';
 
-const cartId = 1;
+let cartId = cartIdCookie();
 
 export const getCartAction = cache(
   async () => {
     try {
+      if (!cartId) return [];
+
       const cartItem = await prisma.cartItem.findMany({
         where: {
-          cartId,
+          cartId: cartId,
         },
       });
 
@@ -45,14 +49,34 @@ export const getCartAction = cache(
   }
 );
 
+const setCartId = async (id: number) =>
+  new Promise((resolve) => {
+    const thirtyDays = 24 * 60 * 60 * 1000 * 30;
+
+    resolve(
+      cookies().set('cartId', id.toString(), {
+        expires: Date.now() - thirtyDays,
+      })
+    );
+  });
+
 export const addToCartAction = async (prevState: any, formData: FormData) => {
   const { quantity, productId } = Object.fromEntries(formData.entries());
 
+  console.log(cartId);
+
   try {
+    if (!cartId) {
+      const newCart = await prisma.cart.create({});
+      await setCartId(newCart.id);
+
+      cartId = newCart.id;
+    }
+
     const productExists = await prisma.cartItem.findFirst({
       where: {
         productId: productId as string,
-        cartId,
+        cartId: cartId,
       },
     });
 
@@ -66,12 +90,10 @@ export const addToCartAction = async (prevState: any, formData: FormData) => {
         },
       });
     } else {
-      console.log('productId', productId);
-
       await prisma.cartItem.create({
         data: {
           productId: productId as string,
-          cartId,
+          cartId: cartId as number,
           quantity: +quantity,
         },
       });
@@ -92,7 +114,7 @@ export const removeCartProductAction = async (
     await prisma.cartItem.delete({
       where: {
         id: id?.toString(),
-        cartId,
+        cartId: cartId,
       },
     });
 

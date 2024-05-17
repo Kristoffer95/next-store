@@ -9,7 +9,6 @@ const cartId = 1;
 export const getProducts = cache(
   async () => {
     const stripeProducts = await stripe.products.list({
-      limit: 10,
       expand: ['data.default_price'],
     });
 

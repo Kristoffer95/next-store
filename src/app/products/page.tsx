@@ -14,6 +14,14 @@ async function ProductsPage() {
     <div>
       <div className='py-[50px]'>
         <div className='container'>
+          <div className='py-10'>
+            <h1
+              className='text-3xl font-medium uppercase
+              text-center text-slate-400'>
+              Shop
+            </h1>
+          </div>
+
           <div className='cards grid grid-cols-4 gap-x-5 gap-y-10'>
             <Suspense
               fallback={<h1 className='text-2xl'>Loading products...</h1>}>

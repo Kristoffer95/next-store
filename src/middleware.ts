@@ -2,11 +2,7 @@ import { auth } from './auth';
 
 import { type NextRequest, NextResponse } from 'next/server';
 
-// async function isProtectedRoute(req: NextRequest) {}
-
 export async function middleware(req: NextRequest) {
-  // await isProtectedRoute(req);
-
   const path = ['/profile'];
   const session = await auth();
 

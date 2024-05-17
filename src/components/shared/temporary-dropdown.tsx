@@ -21,29 +21,26 @@ export async function TemporaryDropdown() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <CircleEllipsis className='h-6 w-6' />
+        <button className='outline-none'>
+          <CircleEllipsis className='h-6 w-6' />
+        </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className='w-56'>
         <DropdownMenuLabel>Pages</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <Link href='/profile'>
-            <DropdownMenuItem>
-              <User className='mr-2 h-4 w-4' />
-              <span>Profile</span>
-              <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-            </DropdownMenuItem>
-          </Link>
-          <DropdownMenuSeparator />
-          {/* old routes */}
-          <Link href='/old-page-create-product'>
-            <DropdownMenuItem>
-              <User className='mr-2 h-4 w-4' />
-              <span>Old | Create Product</span>
-              <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-            </DropdownMenuItem>
-          </Link>
-          <DropdownMenuSeparator />
+          {session && (
+            <>
+              <Link href='/profile'>
+                <DropdownMenuItem>
+                  <User className='mr-2 h-4 w-4' />
+                  <span>Profile</span>
+                  <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+                </DropdownMenuItem>
+              </Link>
+              <DropdownMenuSeparator />
+            </>
+          )}
           {session ? (
             <DropdownMenuItem>
               <LogOut className='mr-2 h-4 w-4' />
