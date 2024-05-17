@@ -1,5 +1,5 @@
 // actions
-import { createCartAction, getCartAction } from '@/actions/db/carts';
+import { getCartAction } from '@/actions/db/carts';
 
 // icons
 import { PiShoppingCartSimpleLight } from 'react-icons/pi';
