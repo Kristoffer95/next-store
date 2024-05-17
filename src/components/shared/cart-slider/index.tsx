@@ -31,13 +31,6 @@ import { CartItem } from '@prisma/client';
 export default async function CartSlider() {
   const session = await auth();
 
-  // async function setCookie() {
-  //   'use server';
-  //   cookies().set('name', 'lee');
-  // }
-
-  // await setCookie();
-
   /**
    * TODO: Can be optimized, currernly fetching all cart items
    * and filtering them in the component. The better approach
@@ -47,8 +40,6 @@ export default async function CartSlider() {
    */
 
   const cartItems = await getCartAction();
-
-  // const cartItems = [] as any[];
 
   const totalCartItems = cartItems.length;
   const hasCartItems = totalCartItems > 0;
