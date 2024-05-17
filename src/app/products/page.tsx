@@ -3,7 +3,7 @@ import ProductCards from '@/components/products/cards';
 import { revalidatePath } from 'next/cache';
 import { Suspense } from 'react';
 
-export const revalidate = 60 * 30; // 30min
+// export const revalidate = 60 * 30; // 30min
 
 async function ProductsPage() {
   revalidatePath('/products');

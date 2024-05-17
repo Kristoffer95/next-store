@@ -2,10 +2,9 @@
 
 import { stripe } from '@/hooks';
 import { Product } from '@/types/stripe/product';
-import { cartIdCookie } from '@/utils/cookies';
+import { cartIdCookie, setCartIdCookie } from '@/utils/cookies';
 import { prisma } from '@/utils/prisma';
 import { unstable_cache as cache, revalidateTag } from 'next/cache';
-import { cookies } from 'next/headers';
 
 let cartId = cartIdCookie();
 
@@ -49,28 +48,18 @@ export const getCartAction = cache(
   }
 );
 
-const setCartId = async (id: number) =>
-  new Promise((resolve) => {
-    const thirtyDays = 24 * 60 * 60 * 1000 * 30;
-
-    resolve(
-      cookies().set('cartId', id.toString(), {
-        expires: Date.now() - thirtyDays,
-      })
-    );
-  });
-
 export const addToCartAction = async (prevState: any, formData: FormData) => {
   const { quantity, productId } = Object.fromEntries(formData.entries());
-
-  console.log(cartId);
 
   try {
     if (!cartId) {
       const newCart = await prisma.cart.create({});
-      await setCartId(newCart.id);
+      const newCartId = await setCartIdCookie(newCart.id);
 
-      cartId = newCart.id;
+      console.log('newCartId');
+      console.log(newCartId);
+
+      cartId = newCartId;
     }
 
     const productExists = await prisma.cartItem.findFirst({
