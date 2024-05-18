@@ -24,9 +24,6 @@ import { auth } from '@/auth';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import CartDetails from './cart-details';
-import { cookies } from 'next/headers';
-import { cartIdCookie } from '@/utils/cookies';
-import { CartItem } from '@prisma/client';
 
 export default async function CartSlider() {
   const session = await auth();

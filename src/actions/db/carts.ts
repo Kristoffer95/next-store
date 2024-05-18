@@ -56,9 +56,6 @@ export const addToCartAction = async (prevState: any, formData: FormData) => {
       const newCart = await prisma.cart.create({});
       const newCartId = await setCartIdCookie(newCart.id);
 
-      console.log('newCartId');
-      console.log(newCartId);
-
       cartId = newCartId;
     }
 

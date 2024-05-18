@@ -1,6 +1,6 @@
 'use client';
 
-import ProductCard from '@/components/products/card';
+import ProductCard from '@/components/shop/card';
 import { Product } from '@/types/stripe/product';
 import { motion } from 'framer-motion';
 

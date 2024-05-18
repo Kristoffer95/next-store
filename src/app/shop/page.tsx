@@ -1,5 +1,5 @@
 import { getProducts } from '@/actions/stripe/products';
-import ProductCards from '@/components/products/cards';
+import ProductCards from '@/components/shop/cards';
 import { revalidatePath } from 'next/cache';
 import { Suspense } from 'react';
 

@@ -18,7 +18,7 @@ async function Header() {
           <div className='flex text-sm items-center gap-7'>
             <Link
               className='uppercase tracking-wide font-semibold'
-              href='/products'>
+              href='/shop'>
               Shop
             </Link>
             <Link className='uppercase tracking-wide font-semibold' href='/'>
