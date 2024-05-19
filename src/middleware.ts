@@ -15,6 +15,13 @@ export async function middleware(req: NextRequest) {
   if (req.nextUrl.pathname === '/auth' && session) {
     return NextResponse.redirect(new URL('/profile', req.url));
   }
+
+  const res = NextResponse.next();
+  // res.cookies.set('testCookie', '123');
+
+  // console.log('result', result);
+
+  return res;
 }
 
 export const config = {

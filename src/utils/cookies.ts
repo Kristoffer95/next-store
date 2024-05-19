@@ -10,8 +10,6 @@ export const setCartIdCookie = (id: number): Promise<number> => {
   return new Promise((resolve, reject) => {
     try {
       const thirtyDaysInSeconds = 30 * 24 * 60 * 60; // Convert 30 days to seconds
-      console.log('went here');
-      console.log('id', id);
 
       cookies().set('cartId', id.toString(), {
         maxAge: thirtyDaysInSeconds,
