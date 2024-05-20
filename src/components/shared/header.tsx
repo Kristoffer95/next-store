@@ -3,15 +3,23 @@ import React from 'react';
 import CartSlider from './cart-slider';
 import { TemporaryDropdown } from './temporary-dropdown';
 import { Twitter } from 'lucide-react';
+import Image from 'next/image';
 
 async function Header() {
   return (
     <div className='flex gap-2 border-b border-black/20 py-3'>
       <div className='container'>
         <div className='flex justify-between'>
-          <div className='flex items-center justify-center w-square w-[40px]'>
-            <Link href='/'>
-              <Twitter size={32} />
+          <div className='flex items-center justify-center w-[130px]'>
+            <Link href='/' className='w-full'>
+              <Image
+                src={'/logo.png'}
+                alt='logo'
+                width={500}
+                height={50}
+                quality={100}
+                className='w-full'
+              />
             </Link>
           </div>
 

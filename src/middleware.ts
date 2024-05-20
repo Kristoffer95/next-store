@@ -16,12 +16,12 @@ export async function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL('/profile', req.url));
   }
 
-  const res = NextResponse.next();
-  // res.cookies.set('testCookie', '123');
+  // const res = NextResponse.next();
+  // // res.cookies.set('testCookie', '123');
 
-  // console.log('result', result);
+  // // console.log('result', result);
 
-  return res;
+  // return res;
 }
 
 export const config = {

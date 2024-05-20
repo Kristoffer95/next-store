@@ -4,12 +4,14 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:https": "next dev --experimental-https",
     "dev:turbo": "next dev --turbo",
     "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
     "migrate": "prisma migrate dev",
-    "studio": "prisma studio"
+    "studio": "prisma studio",
+    "storyblok:generate-types": "node ./src/utils/generate-types.js"
   },
   "prisma": {
     "seed": "ts-node --compiler-options {\"module\":\"CommonJs\"} ./prisma/seed.ts"
@@ -26,6 +28,7 @@
     "@radix-ui/react-tabs": "^1.0.4",
     "@radix-ui/react-toast": "^1.1.5",
     "@reduxjs/toolkit": "^2.2.5",
+    "@storyblok/react": "^3.0.10",
     "@stripe/stripe-js": "^3.4.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",

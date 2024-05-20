@@ -27,6 +27,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/app/api/auth/[...nextauth]"
-  ],
+, "generate-types.js"  ],
   "exclude": ["node_modules"]
 }
