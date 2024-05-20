@@ -84,4 +84,30 @@
   input[type='number'] {
     -moz-appearance: textfield;
   }
+
+  .richtext {
+    h2 {
+      @apply font-accent text-2xl mb-4;
+
+      @screen md {
+        @apply text-3xl mb-7;
+      }
+
+      @screen lg {
+        @apply text-5xl mb-10;
+      }
+    }
+
+    p {
+      @apply mb-5 text-sm font-light tracking-wide;
+
+      @screen md {
+        @apply text-base;
+      }
+
+      & i {
+        @apply font-accent text-sm;
+      }
+    }
+  }
 }

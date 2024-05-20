@@ -10,6 +10,10 @@ const config = {
   ],
   prefix: '',
   theme: {
+    fontFamily: {
+      default: 'var(--default)',
+      accent: 'var(--accent)',
+    },
     container: {
       // https://tailwindcss.com/docs/container
       center: true,
@@ -27,9 +31,6 @@ const config = {
       xxl: '1440px',
     },
     extend: {
-      // fontFamily: {
-      //   test: ['var(--accent)'],
-      // },
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',

@@ -1,11 +1,12 @@
 import type { Metadata } from 'next';
-import './globals.css';
+import './globals.scss';
 import Header from '@/components/shared/header';
 import { Toaster } from '@/components/ui/toaster';
 import { ReduxProvider } from '@/redux/provider';
 import StoryblokProvider from '@/components/storyblok/provider';
 import { sbInit } from '@/utils/SbInit';
-import { primaryFont } from '@/utils/fonts';
+import { accentFont, primaryFont } from '@/utils/fonts';
+import Footer from '@/components/shared/footer';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -20,13 +21,16 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en'>
-      <body className={`${primaryFont.className} font-test`}>
+    <html
+      lang='en'
+      className={`${primaryFont.variable} ${accentFont.variable} font-default`}>
+      <body>
         <ReduxProvider>
           <StoryblokProvider>
             <Header />
             <Toaster />
             {children}
+            <Footer />
           </StoryblokProvider>
         </ReduxProvider>
       </body>

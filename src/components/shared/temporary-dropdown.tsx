@@ -32,7 +32,7 @@ export async function TemporaryDropdown() {
           {session && (
             <>
               <Link href='/profile'>
-                <DropdownMenuItem>
+                <DropdownMenuItem className='cursor-pointer'>
                   <User className='mr-2 h-4 w-4' />
                   <span>Profile</span>
                   <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
@@ -42,7 +42,7 @@ export async function TemporaryDropdown() {
             </>
           )}
           {session ? (
-            <DropdownMenuItem>
+            <DropdownMenuItem className='cursor-pointer'>
               <LogOut className='mr-2 h-4 w-4' />
               <Signout
                 signOut={async () => {
@@ -56,13 +56,13 @@ export async function TemporaryDropdown() {
           ) : (
             <>
               <Link href='/auth'>
-                <DropdownMenuItem>
+                <DropdownMenuItem className='cursor-pointer'>
                   <LogIn className='mr-2 h-4 w-4' />
                   <span>Login / Register</span>
                 </DropdownMenuItem>
               </Link>
 
-              <DropdownMenuItem>
+              <DropdownMenuItem className='cursor-pointer'>
                 <LogIn className='mr-2 h-4 w-4' />
                 <SigninGithub
                   signIn={async () => {
