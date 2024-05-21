@@ -16,7 +16,8 @@ export const setCartAction = async () => {
 export const getCartAction = cache(
   async () => {
     try {
-      let cartId = cartIdCookie();
+      // let cartId = cartIdCookie();
+      let cartId = 1;
 
       if (!cartId) return [];
 
