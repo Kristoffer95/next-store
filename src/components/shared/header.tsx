@@ -1,8 +1,6 @@
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
 import CartSlider from './cart-slider';
 import { TemporaryDropdown } from './temporary-dropdown';
-import { Twitter } from 'lucide-react';
 import Image from 'next/image';
 import HeaderLinks from './header-links';
 
@@ -14,7 +12,7 @@ async function Header() {
   ];
 
   return (
-    <div className='flex gap-2 border-b border-black/20 py-5'>
+    <div className='flex gap-2 border-b border-black/20 py-5 bg-white'>
       <div className='container'>
         <div className='flex justify-between'>
           <div className='flex items-center justify-center w-[130px]'>
