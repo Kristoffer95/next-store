@@ -20,11 +20,12 @@ export const getCartAction = cache(
 
       if (!cartId) return [];
 
-      const cartItem = await prisma.cartItem.findMany({
-        where: {
-          cartId: cartId,
-        },
-      });
+      const cartItem =
+        (await prisma.cartItem.findMany({
+          where: {
+            cartId: cartId,
+          },
+        })) || [];
 
       const productsRaw = await stripe.products.list({
         expand: ['data.default_price'],
