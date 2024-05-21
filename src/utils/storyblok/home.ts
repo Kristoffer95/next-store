@@ -4,8 +4,11 @@ import { sbInit } from '../SbInit';
 export async function fetchData() {
   let sbParams: ISbStoryParams = { version: 'draft' };
 
-  sbInit();
-
+  // sbInit();
   const storyblokApi = getStoryblokApi();
-  return storyblokApi.get(`cdn/stories/home`, sbParams, { cache: 'no-store' });
+  return storyblokApi.get(
+    `cdn/stories/home`,
+    sbParams
+    // { cache: 'no-store' }
+  );
 }
