@@ -7,18 +7,20 @@ import { prisma } from '@/utils/prisma';
 import { unstable_cache as cache, revalidateTag } from 'next/cache';
 import { cookies } from 'next/headers';
 
-// let cartId = cartIdCookie();
-
 export const setCartAction = async () => {
   cookies().set('name', 'lee');
 };
 
-export const getCartAction = cache(
-  async () => {
-    try {
-      // let cartId = cartIdCookie();
-      let cartId = 1;
+export const getCartAction = async () => {
+  let cartId = cartIdCookie();
+  if (!cartId) return [];
 
+  return cachedGetCart(cartId);
+};
+
+const cachedGetCart = cache(
+  async (cartId: number) => {
+    try {
       if (!cartId) return [];
 
       const cartItem = await prisma.cartItem.findMany({
