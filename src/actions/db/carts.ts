@@ -5,12 +5,19 @@ import { Product } from '@/types/stripe/product';
 import { cartIdCookie, setCartIdCookie } from '@/utils/cookies';
 import { prisma } from '@/utils/prisma';
 import { unstable_cache as cache, revalidateTag } from 'next/cache';
+import { cookies } from 'next/headers';
 
-let cartId = cartIdCookie();
+// let cartId = cartIdCookie();
+
+export const setCartAction = async () => {
+  cookies().set('name', 'lee');
+};
 
 export const getCartAction = cache(
   async () => {
     try {
+      let cartId = cartIdCookie();
+
       if (!cartId) return [];
 
       const cartItem = await prisma.cartItem.findMany({
@@ -52,10 +59,11 @@ export const addToCartAction = async (prevState: any, formData: FormData) => {
   const { quantity, productId } = Object.fromEntries(formData.entries());
 
   try {
+    let cartId = cartIdCookie();
+
     if (!cartId) {
       const newCart = await prisma.cart.create({});
       const newCartId = await setCartIdCookie(newCart.id);
-
       cartId = newCartId;
     }
 
@@ -94,6 +102,8 @@ export const addToCartAction = async (prevState: any, formData: FormData) => {
 export const removeCartProductAction = async (
   id: number | string | undefined
 ) => {
+  let cartId = cartIdCookie();
+
   if (!id) throw new Error('No product id provided');
 
   try {

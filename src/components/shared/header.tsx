@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import React from 'react';
+import dynamic from 'next/dynamic';
 import CartSlider from './cart-slider';
 import { TemporaryDropdown } from './temporary-dropdown';
 import { Twitter } from 'lucide-react';

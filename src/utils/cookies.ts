@@ -12,8 +12,10 @@ export const setCartIdCookie = (id: number): Promise<number> => {
       const thirtyDaysInSeconds = 30 * 24 * 60 * 60; // Convert 30 days to seconds
 
       cookies().set('cartId', id.toString(), {
+        secure: true,
         maxAge: thirtyDaysInSeconds,
       });
+
       resolve(id);
     } catch (error) {
       reject(error);

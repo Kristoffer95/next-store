@@ -4,7 +4,7 @@ import React from 'react';
 
 function Footer() {
   return (
-    <div className=''>
+    <div className=' pt-[100px]  mt-10'>
       <div className='container text-black'>
         {/* logo */}
         <div className='flex gap-[100px] py-10'>
