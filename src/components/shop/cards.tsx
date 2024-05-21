@@ -2,22 +2,8 @@
 
 import ProductCard from '@/components/shop/card';
 import { Product } from '@/types/stripe/product';
+import { bottomToTop } from '@/utils/framer-transitions';
 import { motion } from 'framer-motion';
-
-const fadeInAnimationVariants = {
-  initial: {
-    opacity: 0,
-    y: 50,
-  },
-  animate: (index: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay: index * 0.085,
-      duration: 0.35,
-    },
-  }),
-};
 
 function ProductCards({ products }: { products: Product[] }) {
   return (
@@ -27,7 +13,7 @@ function ProductCards({ products }: { products: Product[] }) {
           key={product.id}
           initial='initial'
           whileInView='animate'
-          variants={fadeInAnimationVariants}
+          variants={bottomToTop(index)}
           viewport={{
             once: true,
           }}

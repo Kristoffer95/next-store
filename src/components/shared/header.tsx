@@ -4,10 +4,17 @@ import CartSlider from './cart-slider';
 import { TemporaryDropdown } from './temporary-dropdown';
 import { Twitter } from 'lucide-react';
 import Image from 'next/image';
+import HeaderLinks from './header-links';
 
 async function Header() {
+  const links = [
+    { name: 'shop', href: '/shop' },
+    { name: 'about', href: '/about' },
+    { name: 'contact', href: '/contact' },
+  ];
+
   return (
-    <div className='flex gap-2 border-b border-black/20 py-3'>
+    <div className='flex gap-2 border-b border-black/20 py-5'>
       <div className='container'>
         <div className='flex justify-between'>
           <div className='flex items-center justify-center w-[130px]'>
@@ -24,17 +31,9 @@ async function Header() {
           </div>
 
           <div className='flex text-sm items-center gap-7'>
-            <Link
-              className='uppercase tracking-wide font-semibold'
-              href='/shop'>
-              Shop
-            </Link>
-            <Link className='uppercase tracking-wide font-semibold' href='/'>
-              Other links
-            </Link>
-            <Link className='uppercase tracking-wide font-semibold' href='/'>
-              Other links
-            </Link>
+            {links.map((link, index) => (
+              <HeaderLinks link={link} key={index} />
+            ))}
           </div>
 
           <div className='flex items-center gap-5'>

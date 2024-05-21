@@ -29,7 +29,7 @@ export default async function RootLayout({
           <StoryblokProvider>
             <Header />
             <Toaster />
-            {children}
+            <div className='min-h-[calc(100vh_-_380px)]'>{children}</div>
             <Footer />
           </StoryblokProvider>
         </ReduxProvider>

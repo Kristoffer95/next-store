@@ -28,14 +28,6 @@ import CartDetails from './cart-details';
 export default async function CartSlider() {
   const session = await auth();
 
-  /**
-   * TODO: Can be optimized, currernly fetching all cart items
-   * and filtering them in the component. The better approach
-   * would be getting CartItems based on cartId and pass it to <CartItem />
-   * component. then in the component, fetch the stripe product based on
-   * the productId.
-   */
-
   const cartItems = await getCartAction();
 
   const totalCartItems = cartItems.length;
@@ -48,9 +40,9 @@ export default async function CartSlider() {
           <button>
             <PiShoppingCartSimpleLight className='text-2xl' />
             <div
-              className='absolute bottom-0 -right-2 bg-green-500 
+              className='absolute -bottom-1 -right-3 bg-green-500 
             text-white text-[10px] size-5 flex justify-center 
-            items-center rounded-full'>
+              items-center rounded-full'>
               {totalCartItems}
             </div>
           </button>
