@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
   try {
     const cartItems = await getCartAction();
 
@@ -16,17 +16,14 @@ export async function POST(req: NextRequest, res: NextResponse) {
     const session = await stripe.checkout.sessions.create({
       line_items,
       mode: 'payment',
-      success_url: 'http://localhost:3000/?success=true',
-      cancel_url: 'http://localhost:3000/?canceled=true',
+      success_url: `${req.nextUrl.origin}/?success=true`,
+      cancel_url: `${req.nextUrl.origin}/?canceled=true`,
     });
 
     return NextResponse.redirect(session.url, {
       status: 303,
     });
   } catch (err: any) {
-    return new Response(err.message, { status: err.statusCode || 500 });
-    // NextResponse.json({
-    //   error: err.message,
-    // });
+    return NextResponse.json(err.message, { status: err.statusCode || 500 });
   }
 }
